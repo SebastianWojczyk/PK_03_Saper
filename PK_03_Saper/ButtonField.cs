@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace PK_03_Saper
@@ -6,13 +7,33 @@ namespace PK_03_Saper
     internal class ButtonField : Button
     {
         private bool isBomb;
+        private bool isCovered;
         private int bombAround;
+        public ButtonField()
+        {
+            IsCovered = true;
+            IsBomb = false;
+            BombAround = 0;
+        }
         public bool IsBomb
         {
             get => isBomb;
             set
             {
                 isBomb = value;
+                prepareView();
+            }
+        }
+        public bool IsCovered
+        {
+            get => isCovered;
+            set
+            {
+                isCovered = value;
+                if (!isCovered)
+                {
+                    Enabled = false;
+                }
                 prepareView();
             }
         }
@@ -29,13 +50,28 @@ namespace PK_03_Saper
 
         private void prepareView()
         {
-            if (IsBomb)
+            if (IsCovered)
             {
-                Text = "BB";
+                Text = "";
+                BackColor = Color.Gray;
             }
-            else if (BombAround > 0)
+            else
             {
-                Text = bombAround.ToString();
+
+                if (IsBomb)
+                {
+                    Text = "BB";
+                    BackColor = Color.Red;
+                }
+                else if (BombAround > 0)
+                {
+                    Text = bombAround.ToString();
+                    BackColor = Color.White;
+                }
+                else
+                {
+                    BackColor = Color.White;
+                }
             }
         }
     }

@@ -10,13 +10,36 @@ using System.Windows.Forms;
 
 namespace PK_03_Saper
 {
-    public partial class Form1 : Form
+    public partial class FormSaper : Form
     {
-        PanelGame myGame;
-        public Form1()
+        private PanelGame myGame;
+        public FormSaper()
         {
             InitializeComponent();
+            małaToolStripMenuItem_Click(null, null);
+        }
+
+        private void małaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (myGame != null)
+            {
+                this.Controls.Remove(myGame);
+            }
             myGame = new PanelGame(8, 8, 5);
+            //aby nie było wsunięte pod menu
+            myGame.Location = new Point(0, menuStrip1.Height);
+            this.Controls.Add(myGame);
+        }
+
+        private void dużaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (myGame != null)
+            {
+                this.Controls.Remove(myGame);
+            }
+            myGame = new PanelGame(15, 10, 20);
+            //aby nie było wsunięte pod menu
+            myGame.Location = new Point(0, menuStrip1.Height);
             this.Controls.Add(myGame);
         }
     }
